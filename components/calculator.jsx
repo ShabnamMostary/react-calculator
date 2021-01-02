@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 import React, { useState } from 'react'
 
 export default () => {
@@ -8,22 +7,22 @@ export default () => {
   const [result, setResult] = useState('')
   const [error, setError] = useState('')
   const updateResult = () => {
-    if (parseInt(num1) && parseInt(num2)) {
+    if ((Number(num1) || Number(num1) === 0) && (Number(num2) || Number(num2) === 0)) {
       setError('')
-      // eslint-disable-next-line default-case
       switch (operator) {
         case '+':
-          setResult(parseInt(num1) + parseInt(num2))
+          setResult(Number(num1) + Number(num2))
           break
         case '-':
-          setResult(parseInt(num1) - parseInt(num2))
+          setResult(Number(num1) - Number(num2))
           break
         case '*':
-          setResult(parseInt(num1) * parseInt(num2))
+          setResult(Number(num1) * Number(num2))
           break
         case '/':
-          setResult(parseInt(num1) / parseInt(num2))
+          setResult(Number(num1) / Number(num2))
           break
+        default:
       }
     } else {
       setError('Please provide a valid number for both operands')
@@ -34,16 +33,16 @@ export default () => {
   return (
     <div className="page">
       <div className="title">React Calculator</div>
-      <input type="text" name="num1" onChange={event => setNum1(event.target.value)} />
+      <input type="text" onChange={event => setNum1(event.target.value)} />
       <select className="operator" onChange={event => setOperator(event.target.value)}>
         <option value="+">+</option>
         <option value="-">-</option>
         <option value="*">*</option>
         <option value="/">/</option>
       </select>
-      <input type="text" name="num2" onChange={event => setNum2(event.target.value)} />
+      <input type="text" onChange={event => setNum2(event.target.value)} />
       <input type="submit" value="=" onClick={updateResult} />
-      <output className="result">{result}</output>
+      <input className="result" defaultValue={result} />
       <div className="error">{error}</div>
     </div>
   )
